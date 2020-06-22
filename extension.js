@@ -2,7 +2,6 @@
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require("vscode");
 const fs = require("fs");
-let editor = vscode.window.activeTextEditor;
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -16,6 +15,9 @@ function activate(context) {
       const re_direct = /^require\((.+?)\)(;|)$/gim; // require("things")
       const re_invoked = /^(const|let|var)\s*(\w+)\s*=(\s*require\((.+?))\)\(\)(;|)$/gim; // const name = require("person")()
       const re_unique_invoked = /^(const|let|var)\s+(\w+)\s+=\s+require\((.+?)\).(\w+)\(\)(;|)$/gim; // const something = require("things").something()
+      
+      let editor = vscode.window.activeTextEditor;
+      
       fs.writeFileSync(
         editor.document.uri.fsPath,
         fs
